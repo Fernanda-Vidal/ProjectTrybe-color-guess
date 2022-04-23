@@ -8,3 +8,11 @@ body {
     text-align: center;
     padding: 20px;
 }
+
+.ball {
+    display:inline-block;
+    border: solid black 1px;
+    height: 50px;
+    width: 50px;
+    border-radius: 100%
+}
