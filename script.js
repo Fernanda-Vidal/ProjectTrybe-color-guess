@@ -29,8 +29,8 @@ const pickColor = (ball) => {
 };
 
 const getBall = () => {
-   const ball = divBalls.forEach((elemento) => pickColor(elemento));
-   return ball;
+  const ball = divBalls.forEach((elemento) => pickColor(elemento));
+  return ball;
 };
 getBall();
 
@@ -40,17 +40,19 @@ const verifyColor = (event) => {
   const paragrafo = document.getElementById('answer');
   if (evento === correto) {
     paragrafo.innerText = 'Acertou!';
-    return paragrafo;
+    // CRIANDO PLACAR
+    // const scoreBoard = document.getElementById('score');
+    // const score = document.createElement('p');
+    // score.innerHTML += 3;
   }
   paragrafo.innerText = 'Errou! Tente novamente!';
-  return paragrafo;
 };
-ball1.addEventListener('click', verifyColor);
-ball2.addEventListener('click', verifyColor);
-ball3.addEventListener('click', verifyColor);
-ball4.addEventListener('click', verifyColor);
-ball5.addEventListener('click', verifyColor);
-ball6.addEventListener('click', verifyColor);
+
+const addEventBall = () => {
+  const ball = divBalls.forEach((elemento) => elemento.addEventListener('click', verifyColor));
+  return ball;
+};
+addEventBall();
 
 const button = document.getElementById('reset-game');
 
@@ -60,3 +62,4 @@ const startOver = () => {
   document.getElementById('answer').innerText = 'Escolha uma cor';
 };
 button.addEventListener('click', startOver);
+
