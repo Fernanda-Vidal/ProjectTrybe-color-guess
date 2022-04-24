@@ -16,3 +16,9 @@ body {
     width: 50px;
     border-radius: 100%
 }
+
+#reset-game {
+    width: 120px;
+    height: 30px;
+    background-color: gray;
+}
