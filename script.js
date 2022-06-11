@@ -1,4 +1,19 @@
 const colorTarget = document.getElementById('rgb-color');
+const idDivBalls = document.getElementById('div-balls');
+const paragrafo = document.getElementById('answer');
+const scoreBoard = document.getElementById('score');
+let scoreNumber = 0;
+
+const score = document.createElement('p');
+score.innerHTML = `SCORE ${scoreNumber}`;
+scoreBoard.appendChild(score);
+
+const colorRandom = () => {
+  const color1 = (Math.floor(Math.random() * 255));
+  const color2 = (Math.floor(Math.random() * 255));
+  const color3 = (Math.floor(Math.random() * 255));
+  return `(${color1}, ${color2}, ${color3})`;
+};
 
 const ball1 = document.getElementById('ball1');
 const ball2 = document.getElementById('ball2');
@@ -9,57 +24,34 @@ const ball6 = document.getElementById('ball6');
 
 const divBalls = [ball1, ball2, ball3, ball4, ball5, ball6];
 
-// console.log(divBalls);
-
-const colorRandom = () => {
-  const color1 = (Math.floor(Math.random() * 254));
-  const color2 = (Math.floor(Math.random() * 254));
-  const color3 = (Math.floor(Math.random() * 254));
-  return `(${color1}, ${color2}, ${color3})`;
+const paintBalls = () => {
+  divBalls.forEach((elemento) => {
+    const ball = elemento;
+    const color = `rgb${colorRandom()}`;
+    ball.style.backgroundColor = color;
+  });
+  const correct = document.getElementsByClassName('ball')[Math.floor(Math.random() * 6)];
+  const colorSelected = correct.style.backgroundColor;
+  colorTarget.innerHTML = colorSelected;
 };
-// console.log(colorRandom())
-
-colorTarget.innerHTML = `${colorRandom()}`;
-
-const pickColor = (ball) => {
-  let newBall = ball;
-  let pick = 'rgb'.concat(colorRandom());
-  newBall.style.backgroundColor = pick;
-  return newBall;
-};
-
-const getBall = () => {
-  const ball = divBalls.forEach((elemento) => pickColor(elemento));
-  return ball;
-};
-getBall();
 
 const verifyColor = (event) => {
-  const evento = event.target.style.backgroundColor;
-  const correto = document.getElementById('rgb-color').innerText;
-  const paragrafo = document.getElementById('answer');
-  if (evento === correto) {
+  if (event.target.style.backgroundColor === colorTarget.innerHTML) {
     paragrafo.innerText = 'Acertou!';
-    // CRIANDO PLACAR
-    // const scoreBoard = document.getElementById('score');
-    // const score = document.createElement('p');
-    // score.innerHTML += 3;
+    scoreNumber += 3;
+    score.innerHTML = `SCORE ${scoreNumber}`;
+  } else {
+    paragrafo.innerText = 'Errou! Tente novamente!';
   }
-  paragrafo.innerText = 'Errou! Tente novamente!';
 };
 
-const addEventBall = () => {
-  const ball = divBalls.forEach((elemento) => elemento.addEventListener('click', verifyColor));
-  return ball;
-};
-addEventBall();
-
-const button = document.getElementById('reset-game');
-
-const startOver = () => {
-  getBall();
-  colorTarget.innerHTML = `${colorRandom()}`;
+document.getElementById('reset-game').addEventListener('click', () => {
   document.getElementById('answer').innerText = 'Escolha uma cor';
-};
-button.addEventListener('click', startOver);
+  window.onload();
+});
 
+idDivBalls.addEventListener('click', verifyColor);
+
+window.onload = () => {
+  paintBalls();
+};
